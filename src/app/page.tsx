@@ -1,13 +1,12 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { requestPermission } from "../utils/permission";
 import { getMessaging, onMessage } from "firebase/messaging";
 import { initializeApp } from "firebase/app";
 import config from "../firebase.config";
-import { Cookie } from "next-cookie";
 
 export default function Home() {
-  const cookie = new Cookie();
+  const [token, setToken] = useState("");
   useEffect(() => {
     if (typeof window !== "undefined" && "serviceWorker" in navigator) {
       const firebase = initializeApp(config);
@@ -23,12 +22,20 @@ export default function Home() {
     }
   }, []);
 
-  const token = cookie.get("token");
-  const isServer = typeof window !== "undefined";
+  useEffect(() => {
+    requestPermission().then((token) => setToken(token as string));
+  }, []);
+
   return (
     <main>
-      {isServer && <div>TOKEN: {token as string}</div>}
-      <button onClick={requestPermission}>permission</button>
+      <div>{token}</div>
+      <button
+        onClick={() =>
+          requestPermission().then((data) => setToken(data as string))
+        }
+      >
+        permission
+      </button>
     </main>
   );
 }
