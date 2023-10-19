@@ -4,8 +4,10 @@ import { requestPermission } from "../utils/permission";
 import { getMessaging, onMessage } from "firebase/messaging";
 import { initializeApp } from "firebase/app";
 import config from "../firebase.config";
+import { Cookie } from "next-cookie";
 
 export default function Home() {
+  const cookie = new Cookie();
   useEffect(() => {
     if (typeof window !== "undefined" && "serviceWorker" in navigator) {
       const firebase = initializeApp(config);
@@ -23,5 +25,6 @@ export default function Home() {
   useEffect(() => {
     requestPermission();
   }, []);
-  return <main>HELLO WORLD </main>;
+  const token = cookie.get("token");
+  return <main>TOKEN: {token as string} </main>;
 }
