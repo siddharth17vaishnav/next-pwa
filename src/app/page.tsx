@@ -22,9 +22,13 @@ export default function Home() {
       };
     }
   }, []);
-  useEffect(() => {
-    requestPermission();
-  }, []);
+
   const token = cookie.get("token");
-  return <main>TOKEN: {token as string} </main>;
+  const isServer = typeof window !== "undefined";
+  return (
+    <main>
+      {isServer && <div>TOKEN: {token as string}</div>}
+      <button onClick={requestPermission}>permission</button>
+    </main>
+  );
 }
