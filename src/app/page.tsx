@@ -28,7 +28,7 @@ export default function Home() {
 
   return (
     <main>
-      <div>{token}</div>
+      <div style={{ wordWrap: "break-word" }}>{token}</div>
       <button
         onClick={() =>
           requestPermission().then((data) => setToken(data as string))
