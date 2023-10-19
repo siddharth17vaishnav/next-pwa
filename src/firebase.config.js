@@ -1,6 +1,3 @@
-import { initializeApp } from "firebase/app";
-import { getMessaging } from "firebase/messaging";
-
 const firebaseConfig = {
   apiKey: "AIzaSyB6ZGzvSYJpZmrBPfoWrDwAuUPd2tm033I",
   authDomain: "pwa-test-app-704f7.firebaseapp.com",
@@ -11,8 +8,4 @@ const firebaseConfig = {
   measurementId: "G-RXN4DGS4JH",
 };
 
-// Initialize Firebase
-const FirebaseApp = initializeApp(firebaseConfig);
-const messaging = getMessaging(FirebaseApp);
-
-export { FirebaseApp, messaging };
+export default firebaseConfig;
